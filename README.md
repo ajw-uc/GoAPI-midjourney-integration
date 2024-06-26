@@ -1,6 +1,6 @@
 ## GoAPI API Key
 
-Buat API key GoApi.ai dengan mengakses halaman https://dashboard.goapi.ai/key
+Buat API key GoApi.ai dengan mengakses halaman https://dashboard.goapi.ai/key (masuk dengan menggunakan akun GitHub)
 
 ## Instalasi
 

@@ -13,3 +13,8 @@ GOAPI_KEY=#EXAMPLE_API_KEY
 ## Penggunaan
 
 Jalankan aplikasi pada server PHP, buka halaman index.php untuk memulai penggunaan
+
+
+## Log request dan response
+
+Setiap request yang dikirimkan ke API GoAPI dan respon yang diterima akan disimpan dalam folder logs

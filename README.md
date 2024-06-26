@@ -7,7 +7,7 @@ Buat API key GoApi.ai dengan mengakses halaman https://dashboard.goapi.ai/key
 Copy file .env.example lalu paste dan rename menjadi .env
 Masukkan GoApi API Key pada atribut GOAPI_KEY:
 ```
-GOAPI_KEY=#EXAMPLE_API_KEY
+GOAPI_KEY=abcdefghijklmnopqrstuvwxyz1234567890
 ```
 
 ## Penggunaan

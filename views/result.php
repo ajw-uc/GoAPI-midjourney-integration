@@ -53,7 +53,7 @@ $data->prompt = htmlentities($data->prompt);
             <div class="modal-content shadow-xl">
                 <button type="button" class="btn-close position-absolute z-3 m-0 m-xl-3 bg-light rounded-circle fs-4 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-body">
-                    <div class="d-grid d-xl-flex gap-3">
+                    <div class="d-grid d-xl-flex gap-3 align-items-center">
                         <div>
                             <div class="d-none d-xl-block" style="width:630px">
                                 <template v-if="modal_upscale_data.image_url">

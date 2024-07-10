@@ -1,0 +1,21 @@
+/* preload image */
+body {
+    content: url('../img/sample1.png') url('../img/sample2.png') url('../img/sample3.png') url('../img/sample4.png');
+}
+
+#sample_image {
+    animation: sample_image_change 15s infinite linear;
+    background-size:100%;
+}
+
+@keyframes sample_image_change {
+    0% { background-image: url('../img/sample1.png'); }
+    20% { background-image: url('../img/sample1.png'); }
+    25% { background-image: url('../img/sample2.png'); }
+    45% { background-image: url('../img/sample2.png'); }
+    50% { background-image: url('../img/sample3.png'); }
+    70% { background-image: url('../img/sample3.png'); }
+    75% { background-image: url('../img/sample4.png'); }
+    95% { background-image: url('../img/sample4.png'); }
+    100% { background-image: url('../img/sample1.png'); }
+}

@@ -1,7 +1,4 @@
 .env
-
 logs/*
-!logs/index.php
-
 data/*
-!data/index.php
+!.htaccess

@@ -1,7 +1,7 @@
 <nav class="navbar mb-4">
     <div class="d-flex w-100 justify-content-between align-items-center">
-        <a class="navbar-brand" href="/">
-            <img src="/assets/img/logo.png" style="height:100px">
+        <a class="navbar-brand" href="<?= base_url() ?>">
+            <img src="<?= base_url('assets/img/logo.png') ?>" style="height:100px">
         </a>
         <div class="flex-grow-1 text-end nav-links p-3 rounded-5">
             <div class="dropdown d-inline-block d-sm-none me-3">

@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RedirectMatch 403 ^/data/.*$
+RedirectMatch 403 ^/logs/.*$
+RedirectMatch 403 ^/assets/.*$
+RewriteRule ^(.*)$ index.php?/$1 [L]

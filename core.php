@@ -3,7 +3,12 @@ session_start();
 
 define('ROOT', dirname(__FILE__));
 
-$_ENV = parse_ini_file('.env');
+if (!file_exists(ROOT.'/.env')) {
+    echo '.env file not found'; 
+    exit();
+}
+
+$_ENV = parse_ini_file(ROOT.'/.env');
 $_POST = json_decode(file_get_contents("php://input"),true);
 $token = $_POST['_token'] ?? null;
 
@@ -128,4 +133,8 @@ function curl_post($endpoint, $param = []) {
 
     write_log($url, "cURL Error #: ".$err);
     return false;
+}
+
+function base_url($uri = '') {
+    return ($_ENV['BASE_URL'] ?? '').'/'.$uri;
 }

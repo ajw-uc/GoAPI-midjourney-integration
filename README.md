@@ -2,23 +2,26 @@
 
 Buat API key GoApi.ai dengan mengakses halaman https://dashboard.goapi.ai/key (masuk dengan menggunakan akun GitHub)
 
-## Instalasi
+## Pengaturan
 
 Copy file .env.example lalu paste dan rename menjadi .env
-Isi nama aplikasi dan masukkan GoApi API Key pada atribut GOAPI_KEY:
+Isi nama aplikasi pada atribut APP_NAME dan masukkan GoApi API Key pada atribut GOAPI_KEY:
 ```
 APP_NAME=UC Midjourney
 GOAPI_KEY=abcdefghijklmnopqrstuvwxyz1234567890
 ```
 
-## Penggunaan
+## Instalasi
 
-Jalankan aplikasi pada server PHP, buka halaman index.php untuk memulai penggunaan
-atau jalankan perintah berikut di terminal/command prompt
+Jalankan aplikasi pada server PHP, buka halaman index.php atau "/" untuk memulai penggunaan
+
+### Instalasi dengan XAMPP, MAMP, dan sejenisnya
+
+Tambahkan atribut BASE_URL pada file .env, dan isi valuenya dengan URL http://localhost/folder
 ```
-php -S localhost:80
+BASE_URL=http://localhost/folder
 ```
-Aplikasi dapat diakses dengan menggunakan browser dengan mengakses URL http://localhost
+Jalankan dengan mengakses URL localhost server
 
 ## Struktur folder
 - *api:* daftar kode API yang tersedia

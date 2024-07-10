@@ -1,6 +1,6 @@
 body {
     background-color: #F0F0F0;
-    background-image: url('/assets/img/background.png');
+    background-image: url('../img/background.png');
     background-size:100%;
     background-repeat:no-repeat;
 }
@@ -62,30 +62,6 @@ a {
 
 .text-theme {
     color: rgb(239,158,84);
-}
-
-
-/* preload image */
-
-body {
-    content: url('/assets/img/sample1.png') url('/assets/img/sample2.png') url('/assets/img/sample3.png') url('/assets/img/sample4.png');
-}
-
-#sample_image {
-    animation: sample_image_change 15s infinite linear;
-    background-size:100%;
-}
-
-@keyframes sample_image_change {
-    0% { background-image: url('/assets/img/sample1.png'); }
-    20% { background-image: url('/assets/img/sample1.png'); }
-    25% { background-image: url('/assets/img/sample2.png'); }
-    45% { background-image: url('/assets/img/sample2.png'); }
-    50% { background-image: url('/assets/img/sample3.png'); }
-    70% { background-image: url('/assets/img/sample3.png'); }
-    75% { background-image: url('/assets/img/sample4.png'); }
-    95% { background-image: url('/assets/img/sample4.png'); }
-    100% { background-image: url('/assets/img/sample1.png'); }
 }
 
 .result-item {

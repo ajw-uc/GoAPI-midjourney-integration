@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?= base_url('assets/css/home.css') ?>">
 <div id="app" class="d-flex flex-column min-vh-100 container">
     <?= view('navbar') ?>
     <div class="mb-auto">
@@ -36,37 +37,5 @@
     </div>
 </div>
 
-<script>
-const { createApp } = Vue;
-
-createApp({
-    data() {
-        return {
-            prompt: '',
-            imagining: false
-        }
-    },
-    methods: {
-        api_imagine() {
-            this.imagining = true;
-            axios({
-                method: 'post',
-                url: 'api/imagine.php',
-                data: {
-                    '_token': '<?= $_SESSION['token'] ?>',
-                    'prompt': this.prompt
-                }
-            })
-            .then((response) => {
-                window.location = '/result/' + response.data;  
-            })
-            .catch(function (error) {
-                alert('Failed imagining image');
-                console.error(error.message);
-                this.processing = false;
-            });
-        }
-    },
-}).mount('#app')
-</script>
+<script src="assets/js/home.js"></script>
 </html>

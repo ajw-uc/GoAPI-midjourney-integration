@@ -1,15 +1,19 @@
 <?php
 session_start();
-$_POST = json_decode(file_get_contents("php://input"),true);
 
-function create_csrf() {
+define('ROOT', dirname(__FILE__));
+
+$_ENV = parse_ini_file('.env');
+$_POST = json_decode(file_get_contents("php://input"),true);
+$token = $_POST['_token'] ?? null;
+
+if (!isset($_SESSION['token'])) {
     $_SESSION['token'] = md5(uniqid(mt_rand(), true));
-    return $_SESSION['token'];
 }
 
-function verify_csrf() {
-    $token = $_POST['_token'] ?? null;
-
+function verify_token()
+{
+    global $token;
     if (!$token || $token !== $_SESSION['token']) {
         http_response_code(401);
         exit;
@@ -35,8 +39,57 @@ function get_client_ip() {
     return $ipaddress;
 }
 
+function get_data($task_id)
+{
+    if (!$task_id) return null;
+
+    $saved_file = ROOT.'/data/'.$task_id.'.json';
+    if (file_exists($saved_file)) {
+        return json_decode(file_get_contents($saved_file));
+    }
+    return null;
+}
+
+function view($name, $data = [])
+{
+    ob_start();
+    foreach ($data as $key => $value) {
+        ${$key} = $value;
+    }
+    include(ROOT.'/views/'.$name.'.php');
+    $slot = ob_get_clean();
+    return $slot;
+}
+
+function abort($http_error_code)
+{
+    http_response_code($http_error_code);
+    exit();
+}
+
+
+function write_log($url, $message) {
+    global $token;
+
+    file_put_contents(ROOT.'/logs/'.date('Ymd').'.log', 
+            '['.date("Y-m-d H:i:s.").gettimeofday()["usec"].'] '
+            .$url.' -- '
+            .get_client_ip().' -- '
+            .$token.' -- '
+            .$_SERVER['HTTP_USER_AGENT']."\n"
+            .$message
+            ."\n"
+        , FILE_APPEND);
+}
+
+function redirect($url) {
+    header('Location: '.$url);
+    die();
+    exit();
+}
+
 function curl_post($endpoint, $param = []) {
-    $env = parse_ini_file('.env');
+    global $_ENV;
 
     $endpoint = strtolower($endpoint);
     $url = 'https://api.midjourneyapi.xyz/mj/v2/'.$endpoint;
@@ -56,7 +109,7 @@ function curl_post($endpoint, $param = []) {
         CURLOPT_POSTFIELDS => json_encode($param),
         CURLOPT_HTTPHEADER => [
             "Content-Type: application/json",
-            "X-API-KEY: ".$env['GOAPI_KEY']
+            "X-API-KEY: ".$_ENV['GOAPI_KEY']
         ],
     ]);
     
@@ -65,21 +118,14 @@ function curl_post($endpoint, $param = []) {
     
     curl_close($curl);
     
-    if ($err) {
-        echo "cURL Error #:" . $err;
-        exit;
-    } else {
-        file_put_contents('logs/'.$endpoint.'.log', 
-            '['.date("Y-m-d H:i:s.").gettimeofday()["usec"].'] '
-            .get_client_ip().' -- '
-            .$_SERVER['HTTP_USER_AGENT']."\n"
-            ."\tAPI_KEY: ".$env['GOAPI_KEY']."\n"
+    if (!$err) {
+        write_log($url, "\tAPI_KEY: ".$_ENV['GOAPI_KEY']."\n"
             ."\tREQUEST: ".json_encode($param)."\n"
-            ."\tRESPONSE: ".$response."\n"
-        , FILE_APPEND);
+            ."\tRESPONSE: ".$response);
 
         return json_decode($response);
     }
-}
 
-$env = parse_ini_file('.env');
+    write_log($url, "cURL Error #: ".$err);
+    return false;
+}
